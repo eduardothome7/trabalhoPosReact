@@ -6,10 +6,21 @@ import { createStackNavigator } from 'react-navigation';
 class LogoTitle extends React.Component {
   render() {
     return (
-      <Image
-        source={require('./logo.png')}
-        style={{ width: 30, height: 30 }}
-      />
+      <Image source={require('./logo.png')} style={{ width: 30, height: 30, marginLeft: 8 }} />
+    );
+  }
+}
+
+class DetailsScreen extends React.Component {
+
+  render() {
+    const { navigation } = this.props;
+    const otherParam = navigation.getParam('school', null);
+
+    return (
+      <View>
+        <Text>Ok ok ok</Text>
+      </View>
     );
   }
 }
@@ -30,7 +41,14 @@ class ListScreen extends React.Component {
     };
   }
 
-  renderItem = ({ item }) => (<ListItem title={item.name} avatar={{ uri: item.picture_url }} subtitle={`${item.address} - ${item.city} - ${item.uf}`}/>)
+  onPressItem = (item) => this.props.navigation.navigate('DetailsScreen', {school:item})
+
+  renderItem = ({ item }) => (<ListItem
+                                onPressItem={this.onPressItem}
+                                title={item.name}
+                                avatar={{ uri: item.picture_url }}
+                                subtitle={item.address}
+                              />)
 
   render() {
     return (
@@ -65,18 +83,14 @@ class ListScreen extends React.Component {
 
 const RootStack = createStackNavigator(
   {
-    Home: {
-      screen: ListScreen,
-    },
-    // Details: {
-      // screen: DetailsScreen,
-    // },
+    Home: ListScreen,
+    Details: DetailsScreen,
   },
   {
   initialRouteName: 'Home',
     navigationOptions: {
       headerStyle: {
-        backgroundColor: '#ff6b6b',
+        backgroundColor: '#7158e2',
       },
       headerTintColor: '#fff',
       headerTitleStyle: {
