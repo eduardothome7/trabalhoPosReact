@@ -15,11 +15,15 @@ class DetailsScreen extends React.Component {
 
   render() {
     const { navigation } = this.props;
-    const otherParam = navigation.getParam('school', null);
+    const school = navigation.getParam('school', null);
 
     return (
       <View>
-        <Text>Ok ok ok</Text>
+        <Text>{this.school.name}</Text>
+        <Image source={require('./logo.png')} style={{ width: 120, height: 100 }} />
+        <Text>{this.school.address}</Text>
+        <Text>{this.school.phone}</Text>
+        <Text>{this.school.description}</Text>
       </View>
     );
   }
@@ -44,7 +48,7 @@ class ListScreen extends React.Component {
   onPressItem = (item) => this.props.navigation.navigate('DetailsScreen', {school:item})
 
   renderItem = ({ item }) => (<ListItem
-                                onPressItem={this.onPressItem}
+                                onPress={this.onPressItem}
                                 title={item.name}
                                 avatar={{ uri: item.picture_url }}
                                 subtitle={item.address}
